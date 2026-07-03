@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* Paleta principal — Slate moderno */
+  --color-ink:        #1e293b;
+  --color-coral:      #ff4d2e;
+  --color-lavender:   #34d399;
+  --color-yellow:     #facc15;
+  --color-surface:    #ffffff;
+  --color-background: #f1f5f9;
+
+  /* Alias de compatibilidad */
+  --color-primary:   #ff4d2e;
+  --color-secondary: #34d399;
+  --color-accent:    #facc15;
+  --color-error:     #ef4444;
+  --color-success:   #10b981;
+  --color-warning:   #facc15;
+
+  /* Colores de rol */
+  --color-admin:    #34d399;
+  --color-parent:   #ff4d2e;
+  --color-student:  #facc15;
+
+  /* Variantes legibles sobre fondo claro (AA 4.5:1) */
+  --color-coral-text:    #c2380f; /* coral oscurecido ~5:1 sobre blanco */
+  --color-lavender-text: #059669; /* verde menta oscurecido ~4.6:1 sobre blanco */
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-ink);
+  font-size: 13px;       /* reducido — más compacto y profesional */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fondo con patrón de puntos para el área main */
+main {
+  background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: var(--color-background);
+}
+
+/* Ajuste global de headings */
+h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-size: 0.95rem; font-weight: 600; }
+
+/* ── Cursor e interactividad global ─────────────────────────────────────── */
+
+/* Pointer en todos los elementos clicables */
+a,
+button,
+[role="button"],
+label[for],
+select,
+summary {
+  cursor: pointer;
+}
+
+/* Disabled: cursor not-allowed */
+button:disabled,
+[role="button"][aria-disabled="true"],
+input:disabled {
+  cursor: not-allowed;
+}
+
+/* Escala + sombra al hacer hover en botones y links interactivos */
+button:not(:disabled):hover,
+a:hover {
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+/* Presión al hacer clic — feedback táctil visual */
+button:not(:disabled):active {
+  transform: scale(0.97);
+  opacity: 0.9;
+  transition-duration: 60ms;
+}
+
+/* Focus ring accesible — reemplaza el outline del navegador */
+:focus-visible {
+  outline: 2px solid #ff5734;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Links de navegación (sidebar) */
+nav a:hover {
+  transform: translateX(2px);
+}
+
+nav a:active {
+  transform: translateX(1px) scale(0.98);
+}
+
+/* Cards clicables */
+.card-clickable {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.card-clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+}
+.card-clickable:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Opciones de respuesta en práctica/examen */
+.answer-option {
+  transition: transform 100ms ease, border-color 100ms ease, background-color 100ms ease;
+  cursor: pointer;
+}
+.answer-option:hover:not(:disabled) {
+  transform: translateX(4px);
+}
+.answer-option:active:not(:disabled) {
+  transform: translateX(2px) scale(0.99);
+}
+
+/* ── Textura en campos de formulario ────────────────────────────────────── */
+/* Patrón SVG de ruido fino (puntos irregulares) superpuesto al fondo blanco.
+   Da una sensación de papel/pergamino sin afectar legibilidad ni contraste. */
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+select,
+textarea {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+}
+
+/* Impresión — oculta el shell de la app (sidebar/topbar) y deja fluir
+   solo el contenido de la página actual */
+@media print {
+  aside, header {
+    display: none !important;
+  }
+  main {
+    overflow: visible !important;
+    background-image: none !important;
+  }
+  main > div {
+    overflow: visible !important;
+    height: auto !important;
+  }
+}
